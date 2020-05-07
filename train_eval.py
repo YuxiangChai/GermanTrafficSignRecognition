@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 
 
 # Set epoch numbers
-EPOCH = 30 
+EPOCH = 70
 
 
 # Get transforms of images
@@ -82,8 +82,8 @@ if __name__ == '__main__':
     data_set = DataSet('./GTSRB/Final_Training/Images', transform=get_transform())
     train_set, eval_set = torch.utils.data.random_split(data_set, [int(0.8 * len(data_set)),
                                                                    len(data_set) - int(0.8 * len(data_set))])
-    train_loader = data.DataLoader(train_set, batch_size=64, shuffle=True, num_workers=4)
-    eval_loader = data.DataLoader(eval_set, batch_size=64, shuffle=False, num_workers=4)
+    train_loader = data.DataLoader(train_set, batch_size=128, shuffle=True, num_workers=4)
+    eval_loader = data.DataLoader(eval_set, batch_size=128, shuffle=False, num_workers=4)
 
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
@@ -93,8 +93,6 @@ if __name__ == '__main__':
 
     for epoch in range(EPOCH):
         epochs.append(epoch+1)
-        if epoch > 9:
-            optimizer = torch.optim.Adam(model.parameters(), lr=0.0005)
         loss = train_one_epoch(model, train_loader, epoch, device, optimizer, criterion)
         accuracy = eval_one_epoch(model, eval_loader, device)
         accuracies.append(accuracy)
