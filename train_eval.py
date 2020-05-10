@@ -6,6 +6,7 @@ from model import Net
 from dataset import DataSet
 import torch.utils.data as data
 import torchvision.transforms as transforms
+
 import matplotlib.pyplot as plt
 
 
@@ -71,7 +72,7 @@ def draw(epochs, accuracies):
 
     plt.xticks(np.arange(0, EPOCH+2, 5))
     plt.yticks(np.arange(0.7, 1.0, 0.05))
-    plt.savefig('output_64batch.png')
+    plt.savefig('output.png')
 
 
 if __name__ == '__main__':
@@ -97,6 +98,6 @@ if __name__ == '__main__':
         accuracy = eval_one_epoch(model, eval_loader, device)
         accuracies.append(accuracy)
 
-    torch.save(model, 'model_64batch.pth')
+    torch.save(model, 'model.pth')
     draw(epochs, accuracies)
     print('Total Time: {}s'.format(int(time.time()-start)))
